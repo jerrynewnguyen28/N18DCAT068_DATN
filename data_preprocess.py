@@ -3,6 +3,9 @@ import string
 import numpy as np
 from keras.utils import to_categorical
 import argparse
+import matplotlib.pyplot as plt
+import csv
+import os 
 
 def tokenizer(alphabet,url_length=200):
     dictionary_size = len(alphabet) + 1
@@ -16,11 +19,15 @@ def tokenizer(alphabet,url_length=200):
     
 def data_npz(good,bad,alphabet,dictionary,samples=50000,url_length=200,npz_filename='phishing.npz'):
         good_data = []   
-        i = 0 
+        i = 0
+        # i_good = 0 
         for i in range(26000):
             line = good['URL'][i]
             this_sample=np.zeros(url_shape)
-
+            # if(line[0] == "'" and line[-1] == "'"):
+            #     line = line[1:-1]
+            # line = line.replace("'","%27")
+            # line = line.replace(" ","%20")
             line = line.lower()
             if len ( set(line) - set(alphabet)) == 0 and len(line) < args.url_length:
                 print(i)
@@ -30,7 +37,11 @@ def data_npz(good,bad,alphabet,dictionary,samples=50000,url_length=200,npz_filen
                 for i, char in enumerate(line):
                     this_sample[i][0]=0.0
                     this_sample[i][dictionary[char]]=1.0
+                # plt.imshow(this_sample, cmap='gray')
+                # dirgood = ".\\datasetimg\\good\\" + "GOOD_" + str(i_good) + ".png"
+                # plt.imsave(dirgood, this_sample)
                 good_data.append(this_sample)
+                # i_good = i_good + 1
             else:
                 print("Uncompatible line:", line)
             
@@ -40,11 +51,15 @@ def data_npz(good,bad,alphabet,dictionary,samples=50000,url_length=200,npz_filen
         print ("Array Shape:", good_data.shape)
 
         bad_data = []   
-        i = 0 
+        i = 0
+        # i_bad = 0 
         for i in range(30000):
             line = bad['URL'][i]
             this_sample=np.zeros(url_shape)
-
+            # if(line[0] == "'" and line[-1] == "'"):
+            #     line = line[1:-1]
+            # line = line.replace("'","%27")
+            # line = line.replace(" ","%20")
             line = line.lower()
             if len ( set(line) - set(alphabet)) == 0 and len(line) < args.url_length:
                 for i, position in enumerate(this_sample):
@@ -53,7 +68,11 @@ def data_npz(good,bad,alphabet,dictionary,samples=50000,url_length=200,npz_filen
                 for i, char in enumerate(line):
                     this_sample[i][0]=0.0
                     this_sample[i][dictionary[char]]=1.0
+                # plt.imshow(this_sample, cmap='gray')
+                # dirbad = ".\\datasetimg\\bad\\" + "BAD_" + str(i_bad) + ".png"
+                # plt.imsave(dirbad, this_sample
                 bad_data.append(this_sample)
+                # i_bad = i_bad + 1
             else:
                 print("Uncompatible line:",  line)
             
