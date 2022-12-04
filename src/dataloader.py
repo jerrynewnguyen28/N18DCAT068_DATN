@@ -25,8 +25,15 @@ def generate_fake_samples(generator, real_sample, labels_input, latent_dim, n_sa
 
 def generate_real_random(dataset, n_samples):
     images, labels = dataset
+    # print(images.ndim)
+    # print(images.shape[0])
+    # print(images.shape)
     ix = randint(0, images.shape[0], n_samples)
+    # print(ix)
     X, labels = images[ix], labels[ix]
+    # print(X.shape)
+    # print(labels.shape)
+    # print(labels)
     y = ones((n_samples, 1))
     return [X, labels], y
 
