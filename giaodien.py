@@ -171,13 +171,13 @@ if __name__ == "__main__":
     my_game.place(x=0,y=40,width=563,height=200)
     game_scroll.config(command=my_game.yview)
     game_scroll.config(command=my_game.xview)
-    #define our column
+    
     my_game['columns'] = ('URL', 'STATUS')
-    # format our column
+    
     my_game.column("#0", width=0,  stretch=NO)
     my_game.column("URL",anchor="w", width=500)
     my_game.column("STATUS",anchor=CENTER,width=60)
-    #Create Headings 
+    
     my_game.heading("#0",text="",anchor=CENTER)
     my_game.heading("URL",text="URL",anchor=CENTER)
     my_game.heading("STATUS",text="STATUS",anchor=CENTER)
